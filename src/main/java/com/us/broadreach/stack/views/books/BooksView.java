@@ -2,7 +2,7 @@ package com.us.broadreach.stack.views.books;
 
 import com.us.broadreach.stack.cache.Cache;
 import com.us.broadreach.stack.models.FavoriteItem;
-import com.us.broadreach.stack.service.FavoritesService;
+import com.us.broadreach.stack.models.VolumesResponse;
 import com.us.broadreach.stack.service.GoogleBooksService;
 import com.us.broadreach.stack.views.main.MainView;
 import com.us.broadreach.stack.views.shared.SharedViews;
@@ -31,7 +31,7 @@ public class BooksView extends Div implements AfterNavigationObserver {
     private TextField keyWord;
     private Notification loading = new Notification("Loading...", 1000, Notification.Position.BOTTOM_CENTER);
 
-    public BooksView(GoogleBooksService googleBooksService, FavoritesService favoritesService) {
+    public BooksView(GoogleBooksService googleBooksService) {
         this.googleBooksService = googleBooksService;
 
         keyWord = new TextField();
@@ -78,7 +78,7 @@ public class BooksView extends Div implements AfterNavigationObserver {
         if (null == searchTerm || searchTerm.equals("")) return;
 
         isLoading = true;
-        googleBooksService.getBooksPaged(volumesResponse -> {
+        googleBooksService.getBooksPaged((VolumesResponse volumesResponse) -> {
             getUI().get().access(() -> {
 
                 Cache.getInstance().addItems(volumesResponse.getItems()
