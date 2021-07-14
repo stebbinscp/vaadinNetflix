@@ -2,7 +2,6 @@ package com.us.broadreach.stack.views.books;
 
 import com.us.broadreach.stack.cache.Cache;
 import com.us.broadreach.stack.models.FavoriteItem;
-import com.us.broadreach.stack.models.VolumesResponse;
 import com.us.broadreach.stack.service.GoogleBooksService;
 import com.us.broadreach.stack.views.main.MainView;
 import com.us.broadreach.stack.views.shared.SharedViews;
@@ -78,10 +77,10 @@ public class BooksView extends Div implements AfterNavigationObserver {
         if (null == searchTerm || searchTerm.equals("")) return;
 
         isLoading = true;
-        googleBooksService.getBooksPaged((VolumesResponse volumesResponse) -> {
+        googleBooksService.getBooksPaged(volResp -> {
             getUI().get().access(() -> {
 
-                Cache.getInstance().addItems(volumesResponse.getItems()
+                Cache.getInstance().addItems(volResp.getItems()
                         .stream()
                         .map( item -> FavoriteItem.fromItem(item, Cache.getInstance().getEmail()))
                         .collect(Collectors.toList())
@@ -96,7 +95,7 @@ public class BooksView extends Div implements AfterNavigationObserver {
     }
 
 
-
+    //calls the server with onGridScroll() below. This happens on the client
     private Grid<FavoriteItem> withClientsideScrollListener(Grid<FavoriteItem> grid) {
         grid.getElement().executeJs(
                 "this.$.scroller.addEventListener('scroll', (scrollEvent) => " +

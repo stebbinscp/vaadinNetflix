@@ -26,15 +26,14 @@ public class AboutView extends Div {
 
     private TextField subject = new TextField("Subject");
     private TextArea body = new TextArea("Message");
-   // private String emailBaseUrl = "https://ieb3ax73n6.execute-api.us-east-2.amazonaws.com/Prod/contacts";
-
     private Button send = new Button("Send");
+    // private String emailBaseUrl = "https://ieb3ax73n6.execute-api.us-east-2.amazonaws.com/Prod/contacts";
 
 
     public AboutView() {
         addClassName("about");
+       // body.addClassName("message");
 
-        this.body.addClassName("message");
 
         Span description = new Span("Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
         description.addClassName("text");
@@ -51,6 +50,7 @@ public class AboutView extends Div {
 
             }
         });
+
     }
 
     private void clearFields(){
