@@ -19,8 +19,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.IOException;
-
 @Route(value = "about", layout = MainView.class)
 @PageTitle("About Us")
 @CssImport("./views/about.css")
@@ -45,20 +43,22 @@ public class AboutView extends Div {
 
 
         send.addClickListener(e -> {
-            try {
-                if (subject.isEmpty() || body.isEmpty()) {
-                    openWarning("Fields cannot be blank");
-                } else {
-                    sendEmail(subject.getValue(), body.getValue());
+            if (subject.isEmpty() || body.isEmpty()) {
+                openWarning("Fields cannot be blank");
+            } else {
+                sendEmail(subject.getValue(), body.getValue());
+                clearFields();
 
-                }
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
             }
         });
     }
 
-    public void sendEmail(String subject, String message) throws IOException {
+    private void clearFields(){
+        subject.setValue("");
+        body.setValue("");
+    }
+
+    public void sendEmail(String subject, String message)  {
         Notification success = new Notification(new Html(String.format(
                 "<div class='email-sent-success'><h3>Successfully Sent Message</h3><h4>%s</h4><p>%s</p><div/>", subject,
                 message)));
