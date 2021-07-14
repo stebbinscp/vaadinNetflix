@@ -1,7 +1,6 @@
 package com.us.broadreach.stack.views.about;
 
 
-import com.us.broadreach.stack.models.Email;
 import com.us.broadreach.stack.views.main.MainView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Html;
@@ -16,7 +15,6 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.apache.commons.lang3.StringUtils;
@@ -30,13 +28,10 @@ public class AboutView extends Div {
 
     private TextField subject = new TextField("Subject");
     private TextArea body = new TextArea("Message");
-    private String emailBaseUrl = "https://ieb3ax73n6.execute-api.us-east-2.amazonaws.com/Prod/contacts";
+   // private String emailBaseUrl = "https://ieb3ax73n6.execute-api.us-east-2.amazonaws.com/Prod/contacts";
 
     private Button send = new Button("Send");
 
-
-
-    private Binder<Email> binder = new Binder(Email.class);
 
     public AboutView() {
         addClassName("about");
@@ -48,16 +43,14 @@ public class AboutView extends Div {
 
         add(description, createTitle(), createFormLayout(), createButtonLayout());
 
-        binder.bindInstanceFields(this);
-        clearForm();
 
         send.addClickListener(e -> {
             try {
                 if (subject.isEmpty() || body.isEmpty()) {
-                    openWarning("Fields cannot be blank!");
+                    openWarning("Fields cannot be blank");
                 } else {
                     sendEmail(subject.getValue(), body.getValue());
-                    clearForm();
+
                 }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -67,7 +60,8 @@ public class AboutView extends Div {
 
     public void sendEmail(String subject, String message) throws IOException {
         Notification success = new Notification(new Html(String.format(
-                "<div class='email-sent-success'><h3>Successfully!</h3><h4>%s</h4><p>%s</p><div/>", subject, message)));
+                "<div class='email-sent-success'><h3>Successfully Sent Message</h3><h4>%s</h4><p>%s</p><div/>", subject,
+                message)));
 
         success.setDuration(3000);
         success.setPosition(Notification.Position.BOTTOM_CENTER);
@@ -112,9 +106,7 @@ public class AboutView extends Div {
         notification.open();
     }
 
-    private void clearForm() {
-        binder.setBean(new Email());
-    }
+
 
     private Component createTitle() {
         return new H3("Contact Us");
