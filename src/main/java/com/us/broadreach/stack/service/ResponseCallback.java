@@ -1,6 +1,6 @@
 package com.us.broadreach.stack.service;
 
 @FunctionalInterface
-public interface AsyncRestCallback<T> {
+public interface ResponseCallback<T> {
     void operationFinished(T results);
 }

@@ -17,7 +17,7 @@ public class GoogleBooksService {
     }
 
 
-    public void getBooksPaged(AsyncRestCallback<VolumesResponse> callback, String search, int maxResults,
+    public void getBooksPaged(ResponseCallback<VolumesResponse> callback, String search, int maxResults,
                               int startIndex) {
 
         System.out.println("fetching books -> " + startIndex + " to "

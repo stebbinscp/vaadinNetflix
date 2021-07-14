@@ -12,28 +12,26 @@ import java.util.List;
 public class FavoritesService extends ResponseEntityExceptionHandler {
     private FavoritesRepository favoritesRepository;
 
-    public  interface AsyncRestCallback<T> {
-        void operationFinished(T results);
-    }
+
 
     public FavoritesService(FavoritesRepository favoritesRepository) {
         this.favoritesRepository = favoritesRepository;
     }
 
 
-    public void getFavoritesPaged(com.us.broadreach.stack.service.AsyncRestCallback<List<FavoriteItem>> callback,
+    public void getFavoritesPaged(ResponseCallback<List<FavoriteItem>> callback,
                                   int page) {
         favoritesRepository.getFavoritesPaged(callback, page);
     }
 
 
 
-    public void addFavorite(UI ui, com.us.broadreach.stack.service.AsyncRestCallback<FavoriteItem> callback,
+    public void addFavorite(UI ui, ResponseCallback<FavoriteItem> callback,
                             FavoriteItem favorite)  {
         favoritesRepository.addFavorite(ui, callback, favorite);
     }
 
-    public void deleteFavoriteById(UI ui, com.us.broadreach.stack.service.AsyncRestCallback<FavoriteItem> callback,
+    public void deleteFavoriteById(UI ui, ResponseCallback<FavoriteItem> callback,
                                    String id) {
         favoritesRepository.deleteFavoriteById(ui, callback, id);
     }

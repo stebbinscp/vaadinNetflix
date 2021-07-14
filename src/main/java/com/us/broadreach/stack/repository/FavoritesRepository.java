@@ -2,7 +2,7 @@ package com.us.broadreach.stack.repository;
 
 import com.us.broadreach.stack.cache.Cache;
 import com.us.broadreach.stack.models.FavoriteItem;
-import com.us.broadreach.stack.service.AsyncRestCallback;
+import com.us.broadreach.stack.service.ResponseCallback;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
 import org.springframework.core.ParameterizedTypeReference;
@@ -22,7 +22,7 @@ public class FavoritesRepository {
 
     private final String BASE = "https://container-service-22.9r4o895c5nvr8.us-east-2.cs.amazonlightsail.com";
 
-    public void getFavoritesPaged(AsyncRestCallback<List<FavoriteItem>> callback, int page) {
+    public void getFavoritesPaged(ResponseCallback<List<FavoriteItem>> callback, int page) {
 
         String email = Cache.getInstance().getEmail();
 
@@ -36,7 +36,7 @@ public class FavoritesRepository {
     }
 
 
-    public void deleteFavoriteById(UI ui, AsyncRestCallback<FavoriteItem> callback, String id) {
+    public void deleteFavoriteById(UI ui, ResponseCallback<FavoriteItem> callback, String id) {
 
         String email = Cache.getInstance().getEmail();
         String raw = BASE + "/wish/" + email + "/%s";
@@ -58,7 +58,7 @@ public class FavoritesRepository {
     }
 
 
-    public void addFavorite(UI ui, AsyncRestCallback<FavoriteItem> callback, FavoriteItem favoriteAdd) {
+    public void addFavorite(UI ui, ResponseCallback<FavoriteItem> callback, FavoriteItem favoriteAdd) {
 
         String formatted = BASE + "/wish";
         Mono<FavoriteItem> mono = WebClient.create().post()

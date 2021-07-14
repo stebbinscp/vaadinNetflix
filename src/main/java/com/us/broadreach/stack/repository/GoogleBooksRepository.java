@@ -1,7 +1,7 @@
 package com.us.broadreach.stack.repository;
 
 import com.us.broadreach.stack.models.VolumesResponse;
-import com.us.broadreach.stack.service.AsyncRestCallback;
+import com.us.broadreach.stack.service.ResponseCallback;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -10,7 +10,7 @@ public class GoogleBooksRepository {
 
     private final String BASE = "https://www.googleapis.com/books/v1/volumes?q=%s&maxResults=%d&startIndex=%d";
 
-    public void getBooksPaged(AsyncRestCallback<VolumesResponse> callback, String search, int maxResults,
+    public void getBooksPaged(ResponseCallback<VolumesResponse> callback, String search, int maxResults,
                               int startIndex) {
 
 
