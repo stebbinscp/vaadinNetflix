@@ -23,28 +23,23 @@ public class SharedViews {
 
         Image image = new Image();
 
-        image.setSrc(null == favorite.getLink() ? "https://picsum.photos/200/300" : favorite.getLink());
+        image.setSrc(null == favorite.getImg() ? "https://picsum.photos/200/300" : favorite.getImg());
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.addClassName("vertical-layout");
 
 
         Span title = new Span(null == favorite.getTitle() ? "" : favorite.getTitle());
         title.addClassNames("text", "title");
-        Span author = new Span(null == favorite.getAuthorName() ? "" : favorite.getAuthorName());
-        author.addClassName("text");
-        Span desc = new Span(null == favorite.getDescription() ? "" : favorite.getDescription());
-        desc.addClassName("text");
+        Span synopsis = new Span(null == favorite.getSynopsis() ? "" : favorite.getSynopsis());
+        synopsis.addClassName("text");
         Span email = new Span(null == favorite.getUserEmail() ? "" : favorite.getUserEmail());
         email.addClassName("text");
 
-        Span year = new Span(null == favorite.getYear() ? "" : favorite.getYear());
-        year.addClassName("text");
-
         if (favMode) {
             detail.addClassName("fav-mode");
-            verticalLayout.add(title, author, year, email, desc);
+            verticalLayout.add(title, email, synopsis);
         } else {
-            verticalLayout.add(title, author, year, desc);
+            verticalLayout.add(title, synopsis);
         }
         detail.add(tab, image, verticalLayout);
 
@@ -62,7 +57,7 @@ public class SharedViews {
         tab.addClassName("tab");
         Image image = new Image();
 
-        image.setSrc(null == favorite.getLink() ? "https://picsum.photos/200/300" : favorite.getLink());
+        image.setSrc(null == favorite.getImg() ? "https://picsum.photos/200/300" : favorite.getImg());
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.addClassName("vertical-layout");
         verticalLayout.setSpacing(false);
@@ -70,21 +65,17 @@ public class SharedViews {
 
         Span title = new Span(null == favorite.getTitle() ? "" : favorite.getTitle());
         title.addClassNames("text", "title");
-        Span author = new Span(null == favorite.getAuthorName() ? "" : favorite.getAuthorName());
-        author.addClassName("text");
-        Span desc = new Span(null == favorite.getDescription() ? "" : favorite.getDescription());
-        desc.addClassName("text");
+        Span synopsis = new Span(null == favorite.getSynopsis() ? "" : favorite.getSynopsis());
+        synopsis.addClassName("text");
         Span email = new Span(null == favorite.getUserEmail() ? "" : favorite.getUserEmail());
         email.addClassName("text");
-        Span year = new Span(null == favorite.getYear() ? "" : favorite.getYear());
-        year.addClassName("text");
 
 
         if (favMode) {
-            verticalLayout.add(title, author, year, email);
+            verticalLayout.add(title, synopsis, email);
             card.add(tab, image, verticalLayout);
         } else {
-            verticalLayout.add(title, author, year);
+            verticalLayout.add(title, synopsis);
             card.add(image, verticalLayout);
         }
 

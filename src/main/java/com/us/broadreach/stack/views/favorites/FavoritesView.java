@@ -32,25 +32,28 @@ public class FavoritesView extends Div implements AfterNavigationObserver {
     private boolean isEnd = false;
 
     //no need to cache these. We will simply refetch them each time the user returns to this page
-    private List<FavoriteItem> favoriteItems = new ArrayList<>();
+//    private List<FavoriteItem> favoriteItems = new ArrayList<>();
 
     public FavoritesView(FavoritesService favoritesService) {
         this.favoritesService = favoritesService;
+        System.out.println("favorites vuew");
 
-        addClassName("generic-list");
-        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS);
-        grid.addComponentColumn(item -> SharedViews.getCard(item, true));
-        grid.addItemClickListener(
-                event -> grid.getUI().ifPresent(ui -> {
+//        addClassName("generic-list");
+//        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER, GridVariant.LUMO_NO_ROW_BORDERS);
+//        grid.addComponentColumn(item -> SharedViews.getCard(item, true));
+//        grid.addItemClickListener(
+//                event -> grid.getUI().ifPresent(ui -> {
+//                    System.out.println("clicked");
+//                            Cache.getInstance().setDetailItem(event.getItem());
+//                    System.out.println("caching");
+//                            Cache.getInstance().setFavMode(true);
+//                    System.out.println("fav mode is true");
+//                            ui.navigate("detail-view");
+//
+//                        }
+//                ));
 
-                            Cache.getInstance().setDetailItem(event.getItem());
-                            Cache.getInstance().setFavMode(true);
-                            ui.navigate("detail-view");
-
-                        }
-                ));
-
-        add(withClientsideScrollListener(grid));
+//        add(withClientsideScrollListener(grid));
     }
 
     @Override
@@ -60,55 +63,57 @@ public class FavoritesView extends Div implements AfterNavigationObserver {
     }
 
     private void getFavoritesPaged() {
-        if (isEnd) return;
-
-        isLoading = true;
-        favoritesService.getFavoritesPaged(favoriteResponse -> {
-            getUI().get().access(() -> {
-
-                favoriteItems.addAll(favoriteResponse);
-                grid.setItems(favoriteItems);
-
-                if (favoriteResponse.size() < MAX_RESULTS){
-                    isEnd = true;
-                } else {
-                    page++;
-                }
-
-                isLoading = false;
-                getUI().get().push();
-            });
-        }, page);
+        System.out.println("get favorites list from mongo");
+//        if (isEnd) return;
+//
+//        isLoading = true;
+//        favoritesService.getFavoritesPaged(favoriteResponse -> {
+//            getUI().get().access(() -> {
+//
+//                favoriteItems.addAll(favoriteResponse);
+//                grid.setItems(favoriteItems);
+//
+//                if (favoriteResponse.size() < MAX_RESULTS){
+//                    isEnd = true;
+//                } else {
+//                    page++;
+//                }
+//
+//                isLoading = false;
+//                getUI().get().push();
+//            });
+//        }, page);
     }
 
-    private Grid<FavoriteItem> withClientsideScrollListener(Grid<FavoriteItem> grid) {
-        grid.getElement().executeJs(
-                "this.$.scroller.addEventListener('scroll', (scrollEvent) => " +
-                        "{requestAnimationFrame(" +
-                        "() => $0.$server.onGridScroll({sh: this.$.table.scrollHeight, " +
-                        "ch: this.$.table.clientHeight, " +
-                        "st: this.$.table.scrollTop}))},true)",
-                getElement());
-        return grid;
-    }
-
-    @ClientCallable
-    public void onGridScroll(JsonObject scrollEvent) {
-        int scrollHeight = (int) scrollEvent.getNumber("sh");
-        int clientHeight = (int) scrollEvent.getNumber("ch");
-        int scrollTop = (int) scrollEvent.getNumber("st");
-        double percentage = (double) scrollTop / (scrollHeight - clientHeight);
-        System.out.println("scroll percentage " + percentage);
-        //reached almost the bottom of the scroll
-        if (percentage >= 0.95) {
-            System.out.println("Reached bottom");
-            if (!isLoading) {
-                System.out.println("Paging...");
-                getFavoritesPaged();
-            }
-        }
-
-    }
+//    private Grid<FavoriteItem> withClientsideScrollListener(Grid<FavoriteItem> grid) {
+//        grid.getElement().executeJs(
+//                "this.$.scroller.addEventListener('scroll', (scrollEvent) => " +
+//                        "{requestAnimationFrame(" +
+//                        "() => $0.$server.onGridScroll({sh: this.$.table.scrollHeight, " +
+//                        "ch: this.$.table.clientHeight, " +
+//                        "st: this.$.table.scrollTop}))},true)",
+//                getElement());
+//        // this, should be ok once we build favorite item with the mongo db?
+//        return grid;
+//    }
+//
+//    @ClientCallable
+//    public void onGridScroll(JsonObject scrollEvent) {
+//        int scrollHeight = (int) scrollEvent.getNumber("sh");
+//        int clientHeight = (int) scrollEvent.getNumber("ch");
+//        int scrollTop = (int) scrollEvent.getNumber("st");
+//        double percentage = (double) scrollTop / (scrollHeight - clientHeight);
+////        System.out.println("scroll percentage " + percentage);
+//        //reached almost the bottom of the scroll
+//        if (percentage >= 0.95) {
+//            System.out.println("Reached bottom");
+//            if (!isLoading) {
+//                System.out.println("Paging...");
+//                getFavoritesPaged();
+//            }
+//        }
+//
+//    }
 
 
 

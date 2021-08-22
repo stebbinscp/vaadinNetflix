@@ -2,7 +2,7 @@ package com.us.broadreach.stack.views.books;
 
 import com.us.broadreach.stack.cache.Cache;
 import com.us.broadreach.stack.models.FavoriteItem;
-import com.us.broadreach.stack.service.GoogleBooksService;
+import com.us.broadreach.stack.service.NeftlixService;
 import com.us.broadreach.stack.views.main.MainView;
 import com.us.broadreach.stack.views.shared.SharedViews;
 import com.vaadin.flow.component.ClientCallable;
@@ -22,16 +22,16 @@ import java.util.stream.Collectors;
 @PageTitle("Book Search")
 @CssImport("./views/generic-list.css")
 @PreserveOnRefresh
-public class BooksView extends Div implements AfterNavigationObserver {
+public class NetflixView extends Div implements AfterNavigationObserver {
     public static int MAX_RESULTS = 20;
-    private GoogleBooksService googleBooksService;
+    private NeftlixService neftlixService;
     private Grid<FavoriteItem> grid = new Grid<>();
     private boolean isLoading = false;
     private TextField keyWord;
     private Notification loading = new Notification("Loading...", 1000, Notification.Position.BOTTOM_CENTER);
 
-    public BooksView(GoogleBooksService googleBooksService) {
-        this.googleBooksService = googleBooksService;
+    public NetflixView(NeftlixService neftlixService) {
+        this.neftlixService = neftlixService;
 
         keyWord = new TextField();
         keyWord.setLabel("Search Term");
@@ -77,10 +77,10 @@ public class BooksView extends Div implements AfterNavigationObserver {
         if (null == searchTerm || searchTerm.equals("")) return;
 
         isLoading = true;
-        googleBooksService.getBooksPaged(volResp -> {
+        neftlixService.getNetlixPaged(volResp -> {
             getUI().get().access(() -> {
 
-                Cache.getInstance().addItems(volResp.getItems()
+                Cache.getInstance().addItems(volResp
                         .stream()
                         .map( item -> FavoriteItem.fromItem(item, Cache.getInstance().getEmail()))
                         .collect(Collectors.toList())

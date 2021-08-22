@@ -3,7 +3,7 @@ package com.us.broadreach.stack.views.main;
 import com.us.broadreach.stack.cache.Cache;
 import com.us.broadreach.stack.security.AvatarHelper;
 import com.us.broadreach.stack.views.about.AboutView;
-import com.us.broadreach.stack.views.books.BooksView;
+import com.us.broadreach.stack.views.books.NetflixView;
 import com.us.broadreach.stack.views.favorites.FavoritesView;
 import com.us.broadreach.stack.views.logout.LogoutView;
 import com.vaadin.flow.component.Component;
@@ -109,7 +109,7 @@ public class MainView extends AppLayout  {
     }
 
     private Component[] createMenuItems() {
-        return new Tab[]{createTab("Book Search", BooksView.class), createTab("Favorites", FavoritesView.class),
+        return new Tab[]{createTab("Netflix Search", NetflixView.class), createTab("Favorites", FavoritesView.class),
                 createTab("About Us", AboutView.class)};
     }
 

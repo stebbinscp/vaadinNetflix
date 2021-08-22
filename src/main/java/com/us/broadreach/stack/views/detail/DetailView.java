@@ -18,7 +18,7 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "detail-view", layout = MainView.class)
 @PageTitle("Book Detail")
-@CssImport("./views/detail.css")
+//@CssImport("./views/detail.css")
 public class DetailView extends Div  {
 
     private Button favoriteAction = new Button();
@@ -58,28 +58,36 @@ public class DetailView extends Div  {
                     if (!Cache.getInstance().isFavMode())
                         addFavorite(Cache.getInstance().getDetailItem());
                     else
-                        deleteFavorite(Cache.getInstance().getDetailItem().getId());
+                        System.out.println("delete");
 
 
                 }
         ));
 
-        goBack.setText(!Cache.getInstance().isFavMode() ? "Return to Book Search" : "Return to Favorites");
+        goBack.setText(!Cache.getInstance().isFavMode() ? "Return to Netflix Search" : "Return to Favorites");
 
 
     }
 
     public void addFavorite(FavoriteItem favorite) {
+        System.out.println("adding favorite 1");
+        System.out.println("will do this on mongo, need to " +
+                "add to mongodb, then on the favorites, fetch the mongodb items," +
+                "when we navigate to the favorites and print" +
+                "so for mongo, we need to output the title, synopsis, and image url" +
+                "but the CRUD operations are only for mongodb" +
+                "so lets just have the list of favorites printed and can get more" +
+                "intense later");
+        getUI().get().navigate("favorites");
+//            favoritesService.addFavorite(UI.getCurrent(), favoriteAdd -> {
+//                System.out.println("adding favorite 2");
+//                getUI().get().access(() -> {
+//                    noticeAdd.open();
+//                });
+            };
 
-            favoritesService.addFavorite(UI.getCurrent(), favoriteAdd -> {
-                getUI().get().access(() -> {
-                    noticeAdd.open();
-                    getUI().get().navigate("favorites");
-                });
-            }, favorite);
 
 
-    }
 
     public void deleteFavorite(String alias) {
         favoritesService.deleteFavoriteById(UI.getCurrent(),favoriteDelete -> {
