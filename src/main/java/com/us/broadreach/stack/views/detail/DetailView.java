@@ -18,7 +18,6 @@ import com.vaadin.flow.router.Route;
 
 @Route(value = "detail-view", layout = MainView.class)
 @PageTitle("Book Detail")
-//@CssImport("./views/detail.css")
 public class DetailView extends Div  {
 
     private Button favoriteAction = new Button();

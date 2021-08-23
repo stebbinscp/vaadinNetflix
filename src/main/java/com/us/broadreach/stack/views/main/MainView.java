@@ -3,7 +3,7 @@ package com.us.broadreach.stack.views.main;
 import com.us.broadreach.stack.cache.Cache;
 import com.us.broadreach.stack.security.AvatarHelper;
 import com.us.broadreach.stack.views.about.AboutView;
-import com.us.broadreach.stack.views.books.NetflixView;
+import com.us.broadreach.stack.views.netflix.NetflixView;
 import com.us.broadreach.stack.views.favorites.FavoritesView;
 import com.us.broadreach.stack.views.logout.LogoutView;
 import com.vaadin.flow.component.Component;

@@ -6,6 +6,7 @@ import com.vaadin.flow.component.UI;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -19,8 +20,7 @@ public class FavoritesService extends ResponseEntityExceptionHandler {
     }
 
 
-    public void getFavoritesPaged(ResponseCallback<List<FavoriteItem>> callback,
-                                  int page) {
+    public void getFavoritesPaged(ResponseCallback<List<FavoriteItem>> callback, int page){
         favoritesRepository.getFavoritesPaged(callback, page);
     }
 

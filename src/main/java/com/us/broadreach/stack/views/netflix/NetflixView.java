@@ -1,4 +1,4 @@
-package com.us.broadreach.stack.views.books;
+package com.us.broadreach.stack.views.netflix;
 
 import com.us.broadreach.stack.cache.Cache;
 import com.us.broadreach.stack.models.FavoriteItem;

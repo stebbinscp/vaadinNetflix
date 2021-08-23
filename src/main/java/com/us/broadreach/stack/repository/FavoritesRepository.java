@@ -5,6 +5,9 @@ import com.us.broadreach.stack.models.FavoriteItem;
 import com.us.broadreach.stack.service.ResponseCallback;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
+import net.minidev.json.JSONObject;
+import org.apache.http.client.HttpClient;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,29 +15,32 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Repository
 public class FavoritesRepository {
 
-//    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-//    private final String BASE = "https://container-service-22.9r4o895c5nvr8.us-east-2.cs.amazonlightsail.com";
+    private final String BASE = "http://localhost:8080/netflix/";
 
     public void getFavoritesPaged(ResponseCallback<List<FavoriteItem>> callback, int page) {
-//
-        String email = Cache.getInstance().getEmail();
-        System.out.println("input mongo here, return all json");
-//
-//        String raw = BASE + "/wish/paged/" + email + "/%d";
-//        String formatted = String.format(raw, page);
-//        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get()
-//                .uri(formatted);
-//
-//        spec.retrieve().bodyToMono(new ParameterizedTypeReference<List<FavoriteItem>>() {
-//        }).publishOn(Schedulers.fromExecutor(executorService)).subscribe(callback::operationFinished);
+
+        String formatted = String.format(BASE, page);
+        WebClient.RequestHeadersSpec<?> spec = WebClient.create().get()
+                .uri(formatted);
+
+        spec.retrieve().bodyToMono(new ParameterizedTypeReference<List<FavoriteItem>>() {
+        }).publishOn(Schedulers.fromExecutor(executorService)).subscribe(callback::operationFinished);
+
     }
 
 //
