@@ -6,29 +6,26 @@ import com.google.gson.annotations.SerializedName;
 
 public class Email {
 
-    @SerializedName("id")
-    @Expose
-    private String id;
-
-    @SerializedName("emailFrom")
-    @Expose
     private String emailFrom;
-
-    @SerializedName("subject")
-    @Expose
     private String subject;
-
-    @SerializedName("body")
-    @Expose
     private String body;
 
-    public String getId() {
-        return id;
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "Email{" +
+                "emailFrom='" + emailFrom + '\'' +
+                ", subject='" + subject + '\'' +
+                ", body='" + body + '\'' +
+                '}';
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Email(String emailFrom, String subject, String body) {
+        this.emailFrom = emailFrom;
+        this.subject = subject;
+        this.body = body;
     }
+
+    public Email(){}
 
     public String getEmailFrom() {
         return emailFrom;
@@ -53,14 +50,5 @@ public class Email {
     public void setBody(String body) {
         this.body = body;
     }
-
-    @Override
-    public String toString() {
-        return "Email{" +
-                "id='" + id + '\'' +
-                ", emailFrom='" + emailFrom + '\'' +
-                ", subject='" + subject + '\'' +
-                ", body='" + body + '\'' +
-                '}';
-    }
 }
+
