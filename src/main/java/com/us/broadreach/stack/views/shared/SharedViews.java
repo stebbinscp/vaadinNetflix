@@ -32,12 +32,10 @@ public class SharedViews {
         title.addClassNames("text", "title");
         Span synopsis = new Span(null == favorite.getSynopsis() ? "" : favorite.getSynopsis());
         synopsis.addClassName("text");
-        Span email = new Span(null == favorite.getUserEmail() ? "" : favorite.getUserEmail());
-        email.addClassName("text");
 
         if (favMode) {
             detail.addClassName("fav-mode");
-            verticalLayout.add(title, email, synopsis);
+            verticalLayout.add(title, synopsis);
         } else {
             verticalLayout.add(title, synopsis);
         }
@@ -67,12 +65,10 @@ public class SharedViews {
         title.addClassNames("text", "title");
         Span synopsis = new Span(null == favorite.getSynopsis() ? "" : favorite.getSynopsis());
         synopsis.addClassName("text");
-        Span email = new Span(null == favorite.getUserEmail() ? "" : favorite.getUserEmail());
-        email.addClassName("text");
 
 
         if (favMode) {
-            verticalLayout.add(title, synopsis, email);
+            verticalLayout.add(title, synopsis);
             card.add(tab, image, verticalLayout);
         } else {
             verticalLayout.add(title, synopsis);

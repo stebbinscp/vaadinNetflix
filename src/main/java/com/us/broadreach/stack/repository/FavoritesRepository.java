@@ -46,65 +46,55 @@ public class FavoritesRepository {
 //
     public void deleteFavoriteById(UI ui, ResponseCallback<FavoriteItem> callback, String id) {
         System.out.println("delete from mongo");
-//        String email = Cache.getInstance().getEmail();
-//        String raw = BASE + "/wish/" + email + "/%s";
-//        String formatted = String.format(raw, id);
-//        Mono<FavoriteItem> mono = WebClient.create().delete()
-//                .uri(formatted)
-//                .retrieve()
-//                .bodyToMono(FavoriteItem.class);
+        String formatted = BASE +id;
+        Mono<FavoriteItem> mono = WebClient.create().delete()
+                .uri(formatted)
+                .retrieve()
+                .bodyToMono(FavoriteItem.class);
 //
-//        mono
-//                .doOnError(throwable -> ui.access(() -> {
-//                    Notification.show("Unable to delete favorite: " + throwable.getMessage(), 2000,
-//                            Notification.Position.BOTTOM_CENTER);
-//                    ui.navigate("favorites");
-//                }))
-//                .publishOn(Schedulers.fromExecutor(executorService))
-//                .subscribe(callback::operationFinished);
+        mono
+                .doOnError(throwable -> ui.access(() -> {
+                    Notification.show("Unable to delete favorite: " + throwable.getMessage(), 2000,
+                            Notification.Position.BOTTOM_CENTER);
+                    ui.navigate("favorites");
+                }))
+                .publishOn(Schedulers.fromExecutor(executorService))
+                .subscribe(callback::operationFinished);
 //
     }
 //
 //
     public void addFavorite(UI ui, ResponseCallback<FavoriteItem> callback, FavoriteItem favoriteAdd) {
-        System.out.println("update mongo");
-//        String formatted = BASE + "/wish";
-//        Mono<FavoriteItem> mono = WebClient.create().post()
+//        System.out.println("update mongo");
+        String formatted = BASE;
+        Mono<FavoriteItem> mono = WebClient.create().post()
 //
-//                .uri(formatted)
-//                .body(Mono.just(favoriteAdd), FavoriteItem.class)
-//                .retrieve()
-//                .bodyToMono(FavoriteItem.class);
-//
-//        mono
-//                .doOnError(throwable -> {
-//                    String message = "";
-//                    switch (((WebClientResponseException.UnsupportedMediaType) throwable).getStatusCode().value()){
-//                        case 415:
-//                            message = "This book is already in your favorites.";
-//                        break;
-//                        default:
-//                            message = "There was an error: " + throwable.getMessage();
-//
-//                    }
-//                    final String finalMessage = message;
-//                    ui.access(() -> {
-//                        Notification.show(finalMessage , 2000,
-//                                Notification.Position.BOTTOM_CENTER);
-//                        ui.navigate("favorites");
-//                    });
-//
-//                })
-//                .publishOn(Schedulers.fromExecutor(executorService))
-//                .subscribe(callback::operationFinished);
-//
-    }
-//
+                .uri(formatted)
+                .body(Mono.just(favoriteAdd), FavoriteItem.class)
+                .retrieve()
+                .bodyToMono(FavoriteItem.class);
 
-    // this is where i will input the mongo stuff
-    // will need to have it from my qurkus
-    // and print out the response is the intent
-    // then like company item, when i am grabbing the item, I will want to
-    // to string and print the favoriteItem, fetchAll functionality
+        mono
+                .doOnError(throwable -> {
+                    String message = "";
+                    switch (((WebClientResponseException.UnsupportedMediaType) throwable).getStatusCode().value()){
+                        case 415:
+                            message = "This netflix item is already in your favorites.";
+                        break;
+                        default:
+                            message = "There was an error: " + throwable.getMessage();
+
+                    }
+                    final String finalMessage = message;
+                    ui.access(() -> {
+                        Notification.show(finalMessage , 2000,
+                                Notification.Position.BOTTOM_CENTER);
+//                        ui.navigate("favorites");
+                    });
+
+                })
+                .publishOn(Schedulers.fromExecutor(executorService))
+                .subscribe(callback::operationFinished);
+    }
 
 }

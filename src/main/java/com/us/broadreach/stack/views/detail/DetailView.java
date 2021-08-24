@@ -57,9 +57,9 @@ public class DetailView extends Div  {
                     if (!Cache.getInstance().isFavMode())
                         addFavorite(Cache.getInstance().getDetailItem());
                     else
+                        deleteFavorite(Cache.getInstance().getDetailItem().getId());
                         System.out.println("delete");
-
-
+                        getUI().get().navigate("favorites");
                 }
         ));
 
@@ -69,20 +69,13 @@ public class DetailView extends Div  {
     }
 
     public void addFavorite(FavoriteItem favorite) {
-        System.out.println("adding favorite 1");
-        System.out.println("will do this on mongo, need to " +
-                "add to mongodb, then on the favorites, fetch the mongodb items," +
-                "when we navigate to the favorites and print" +
-                "so for mongo, we need to output the title, synopsis, and image url" +
-                "but the CRUD operations are only for mongodb" +
-                "so lets just have the list of favorites printed and can get more" +
-                "intense later");
-        getUI().get().navigate("favorites");
-//            favoritesService.addFavorite(UI.getCurrent(), favoriteAdd -> {
-//                System.out.println("adding favorite 2");
-//                getUI().get().access(() -> {
-//                    noticeAdd.open();
-//                });
+        System.out.println(favorite);
+        System.out.println("adding favorite");
+        favoritesService.addFavorite(UI.getCurrent(), favoriteAdd -> {
+            getUI().get().access(() -> {
+                noticeAdd.open();
+            });
+        }, favorite);
             };
 
 

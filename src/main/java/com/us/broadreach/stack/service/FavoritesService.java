@@ -36,6 +36,4 @@ public class FavoritesService extends ResponseEntityExceptionHandler {
         favoritesRepository.deleteFavoriteById(ui, callback, id);
     }
 
-
-
 }

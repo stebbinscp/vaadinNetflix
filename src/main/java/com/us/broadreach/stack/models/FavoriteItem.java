@@ -4,14 +4,13 @@ import java.io.Serializable;
 
 public class FavoriteItem implements Serializable {
 
-    private String userEmail;
     private String title;
     private String synopsis;
     private String img;
+    private String id;
 
-    public static FavoriteItem fromItem(Result result, String  userEmail){
+    public static FavoriteItem fromItem(Result result){
         FavoriteItem favoriteItem = new FavoriteItem();
-        favoriteItem.setUserEmail(userEmail);
 
         favoriteItem.setTitle(null == result.getTitle() ? "": result.getTitle());
         favoriteItem.setSynopsis(null == result.getSynopsis() ? "": result.getSynopsis());
@@ -21,17 +20,7 @@ public class FavoriteItem implements Serializable {
         } else {
             favoriteItem.setImg("https://picsum.photos/100/300");
         }
-        System.out.println(favoriteItem.img);
         return favoriteItem;
-    }
-
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
     }
 
     public String getTitle() {
@@ -56,5 +45,13 @@ public class FavoriteItem implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

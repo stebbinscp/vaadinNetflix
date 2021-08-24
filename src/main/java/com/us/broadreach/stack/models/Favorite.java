@@ -3,25 +3,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Favorite {
-
-//    @SerializedName("id")
-//    @Expose
-//    private String id;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("synopsis")
     @Expose
     private String synopsis;
-//    @SerializedName("rating")
-//    @Expose
-//    private String rating;
-//    @SerializedName("phone")
-//    @Expose
-//    private String phone;
-//    @SerializedName("price")
-//    @Expose
-//    private String price;
     @SerializedName("img")
     @Expose
     private String img;

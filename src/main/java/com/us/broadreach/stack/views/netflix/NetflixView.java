@@ -82,7 +82,7 @@ public class NetflixView extends Div implements AfterNavigationObserver {
 
                 Cache.getInstance().addItems(volResp
                         .stream()
-                        .map( item -> FavoriteItem.fromItem(item, Cache.getInstance().getEmail()))
+                        .map( item -> FavoriteItem.fromItem(item))
                         .collect(Collectors.toList())
                 );
                 grid.setItems(Cache.getInstance().streamItems());

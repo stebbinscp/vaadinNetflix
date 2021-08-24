@@ -65,18 +65,9 @@ public class FavoritesView extends Div implements AfterNavigationObserver {
     }
 
     private void getFavoritesPaged() {
-        System.out.println("get favorites list from mongo");
         if (isEnd) return;
-//
+
         isLoading = true;
-
-        favoritesService.getFavoritesPaged(response -> {
-            while (response.listIterator().hasNext()){
-                FavoriteItem result = response.get(0);
-                System.out.println(result.getImg());
-            }
-        }, page);
-
         favoritesService.getFavoritesPaged(favoriteResponse -> {
             System.out.println(favoriteResponse);
             getUI().get().access(() -> {
@@ -104,7 +95,6 @@ public class FavoritesView extends Div implements AfterNavigationObserver {
                         "ch: this.$.table.clientHeight, " +
                         "st: this.$.table.scrollTop}))},true)",
                 getElement());
-        // this, should be ok once we build favorite item with the mongo db?
         return grid;
     }
 //
@@ -114,8 +104,6 @@ public class FavoritesView extends Div implements AfterNavigationObserver {
         int clientHeight = (int) scrollEvent.getNumber("ch");
         int scrollTop = (int) scrollEvent.getNumber("st");
         double percentage = (double) scrollTop / (scrollHeight - clientHeight);
-//        System.out.println("scroll percentage " + percentage);
-        //reached almost the bottom of the scroll
         if (percentage >= 0.95) {
             System.out.println("Reached bottom");
             if (!isLoading) {
@@ -123,9 +111,5 @@ public class FavoritesView extends Div implements AfterNavigationObserver {
                 getFavoritesPaged();
             }
         }
-
     }
-
-
-
 }
