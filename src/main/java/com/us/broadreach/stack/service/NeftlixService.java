@@ -22,7 +22,7 @@ public class NeftlixService {
     public void getNetlixPaged(ResponseCallback<List<Result>> callback, String search, int maxResults,
                                int startIndex) {
 
-        System.out.println("fetching books -> " + startIndex + " to "
+        System.out.println("fetching netflix -> " + startIndex + " to "
                 + (startIndex + MAX_RESULTS - 1));
 
         netflixRepository.getNetflix(callback, startIndex, maxResults, search);
