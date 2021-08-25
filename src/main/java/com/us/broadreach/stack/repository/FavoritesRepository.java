@@ -31,7 +31,7 @@ public class FavoritesRepository {
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-    private final String BASE = "http://localhost:8080/netflix/";
+    private final String BASE = "https://container-service-1.d6g1bc3abar1i.us-east-1.cs.amazonlightsail.com/netflix/";
 
     private TextField synopsis = new TextField("UPDATE SYNOPSIS");
 
