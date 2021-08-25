@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Route(value = "card-list", layout = MainView.class)
 @RouteAlias(value = "", layout = MainView.class)
-@PageTitle("Book Search")
+@PageTitle("Netflix Search")
 @CssImport("./views/generic-list.css")
 @PreserveOnRefresh
 public class NetflixView extends Div implements AfterNavigationObserver {

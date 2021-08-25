@@ -38,11 +38,9 @@ public class AboutView extends Div {
 
     public AboutView() {
         addClassName("about");
-       // body.addClassName("message");
 
-
-        Span description = new Span("Please enjoy this website designed for storing your" +
-                "netflix films and tv shows, allowing you to edit their descriptions in your" +
+        Span description = new Span("Please enjoy this website designed for storing your " +
+                "netflix films and tv shows, allowing you to edit their descriptions in your " +
                 "own database.");
         description.addClassName("text");
 

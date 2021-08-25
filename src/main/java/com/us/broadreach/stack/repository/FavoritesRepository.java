@@ -5,6 +5,7 @@ import com.us.broadreach.stack.models.FavoriteItem;
 import com.us.broadreach.stack.service.ResponseCallback;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.textfield.TextField;
 import net.minidev.json.JSONObject;
 import org.apache.http.client.HttpClient;
 import org.apache.tomcat.util.json.JSONParser;
@@ -32,6 +33,8 @@ public class FavoritesRepository {
 
     private final String BASE = "http://localhost:8080/netflix/";
 
+    private TextField synopsis = new TextField("UPDATE SYNOPSIS");
+
     public void getFavoritesPaged(ResponseCallback<List<FavoriteItem>> callback, int page) {
 
         String formatted = String.format(BASE, page);
@@ -43,6 +46,38 @@ public class FavoritesRepository {
 
     }
 
+    public void updateFavoriteById(UI ui, ResponseCallback<FavoriteItem> callback,
+                                   FavoriteItem favorite, String id, String synopsis){
+        System.out.println("update mongo");
+        String formatted = BASE +id;
+        favorite.setSynopsis(synopsis);
+        Mono<FavoriteItem> mono = WebClient.create().patch()
+                .uri(formatted)
+                .body(Mono.just(favorite), FavoriteItem.class)
+                .retrieve()
+                .bodyToMono(FavoriteItem.class);
+        mono
+                .doOnError(throwable -> {
+                    String message = "";
+                    switch (((WebClientResponseException.UnsupportedMediaType) throwable).getStatusCode().value()){
+                        case 415:
+                            message = "This netflix item is already in your favorites.";
+                            break;
+                        default:
+                            message = "There was an error: " + throwable.getMessage();
+
+                    }
+                    final String finalMessage = message;
+                    ui.access(() -> {
+                        Notification.show(finalMessage , 2000,
+                                Notification.Position.BOTTOM_CENTER);
+                    });
+
+                })
+                .publishOn(Schedulers.fromExecutor(executorService))
+                .subscribe(callback::operationFinished);
+
+    }
 //
     public void deleteFavoriteById(UI ui, ResponseCallback<FavoriteItem> callback, String id) {
         System.out.println("delete from mongo");

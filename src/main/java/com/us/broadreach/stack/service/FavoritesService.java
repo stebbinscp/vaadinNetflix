@@ -24,6 +24,10 @@ public class FavoritesService extends ResponseEntityExceptionHandler {
         favoritesRepository.getFavoritesPaged(callback, page);
     }
 
+    public void updateFavorite(UI ui, ResponseCallback<FavoriteItem> callback,
+                               FavoriteItem favorite, String id, String synopsis){
+        favoritesRepository.updateFavoriteById(ui, callback, favorite, id, synopsis);
+    }
 
 
     public void addFavorite(UI ui, ResponseCallback<FavoriteItem> callback,

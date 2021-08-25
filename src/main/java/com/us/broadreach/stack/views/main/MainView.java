@@ -137,10 +137,4 @@ public class MainView extends AppLayout  {
         return title == null ? "" : title.value();
     }
 
-//    @Override
-//    public void configurePage(InitialPageSettings settings) {
-//        LoadingIndicatorConfiguration conf = settings.getLoadingIndicatorConfiguration();
-//        // disable default theme -> loading indicator will not be shown
-//        conf.setApplyDefaultTheme(false);
-//    }
 }
